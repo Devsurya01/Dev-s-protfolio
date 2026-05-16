@@ -91,9 +91,16 @@ function hideModal() {
 closeModalBtn.addEventListener('click', hideModal);
 videoModal.addEventListener('click', (e) => { if (e.target === videoModal) hideModal(); });
 
+const customAlert = document.getElementById('custom-alert');
+const closeAlertBtn = document.getElementById('close-alert');
+function hideCustomAlert() { if (customAlert) customAlert.classList.remove('visible'); }
+if (closeAlertBtn) closeAlertBtn.addEventListener('click', hideCustomAlert);
+if (customAlert) customAlert.addEventListener('click', (e) => { if (e.target === customAlert) hideCustomAlert(); });
+
 document.addEventListener('keydown', (e) => {
-    if (e.key === "Escape" && videoModal.classList.contains('visible')) {
-        hideModal();
+    if (e.key === "Escape") {
+        if (videoModal && videoModal.classList.contains('visible')) hideModal();
+        if (customAlert && customAlert.classList.contains('visible')) hideCustomAlert();
     }
 });
 
@@ -103,7 +110,7 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
     if (a.getAttribute('href') === '#') {
         e.preventDefault();
         if (a.classList.contains('project-card') && !a.classList.contains('video-trigger')) {
-            alert('No link has been added');
+            if (customAlert) customAlert.classList.add('visible');
         }
         return;
     }
