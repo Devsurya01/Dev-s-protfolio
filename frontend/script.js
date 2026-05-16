@@ -101,6 +101,10 @@ document.addEventListener('keydown', (e) => {
 document.querySelectorAll('a[href^="#"]').forEach(a => {
   a.addEventListener('click', e => {
     if (a.getAttribute('href') === '#') {
+        e.preventDefault();
+        if (a.classList.contains('project-card') && !a.classList.contains('video-trigger')) {
+            alert('No link has been added');
+        }
         return;
     }
 
